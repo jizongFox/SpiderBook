@@ -13,6 +13,9 @@ if __name__ == '__main__':
     else:
         print 'I(%s) created a chlid process (%s).',(os.getpid(),pid)
 '''
+
+
+
 '''
 第二种方法：使用multiprocessing模块创建多进程
 import os
