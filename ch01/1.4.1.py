@@ -13,53 +13,51 @@ if __name__ == '__main__':
     else:
         print 'I(%s) created a chlid process (%s).',(os.getpid(),pid)
 '''
-
-
-
 '''
-第二种方法：使用multiprocessing模块创建多进程
+# 第二种方法：使用multiprocessing模块创建多进程
 import os
 from multiprocessing import Process
 # 子进程要执行的代码
 def run_proc(name):
-    print 'Child process %s (%s) Running...' % (name, os.getpid())
+    print ('Child process %s (%s) Running...' % (name, os.getpid()))
 if __name__ == '__main__':
-    print 'Parent process %s.' % os.getpid()
+    print ('Parent process %s.' % os.getpid())
     p_list=[]
     for i in range(5):
         p = Process(target=run_proc, args=(str(i),))
         p_list.append(p)
-        print 'Process will start.'
+        print ('Process will start.')
         p_list[i].start()
     for p in p_list:
         p.join()
-    print 'Process end.'
+        pass
+    print ('Process end.')
 
 '''
-'''
-multiprocessing模块提供了一个Pool类来代表进程池对象
 
-from multiprocessing import Pool
-import os, time, random
+# multiprocessing模块提供了一个Pool类来代表进程池对象
 
-def run_task(name):
-    print 'Task %s (pid = %s) is running...' % (name, os.getpid())
-    time.sleep(random.random() * 3)
-    print 'Task %s end.' % name
+# from multiprocessing import Pool
+# import os, time, random
+#
+# def run_task(name):
+#     print ('Task %s (pid = %s) is running...' % (name, os.getpid()))
+#     time.sleep(random.random() * 3)
+#     print ('Task %s end.' % name)
+#
+# if __name__=='__main__':
+#     print ('Current process %s.' % os.getpid())
+#     p = Pool(processes=2)
+#     for i in range(5):
+#         p.apply_async(run_task, args=(i,))
+#     print ('Waiting for all subprocesses done...')
+#     p.close()
+#     p.join()
+#     print ('All subprocesses done.')
 
-if __name__=='__main__':
-    print 'Current process %s.' % os.getpid()
-    p = Pool(processes=3)
-    for i in range(5):
-        p.apply_async(run_task, args=(i,))
-    print 'Waiting for all subprocesses done...'
-    p.close()
-    p.join()
-    print 'All subprocesses done.'
 
-'''
-'''
-Queue进程间通信
+
+# Queue进程间通信
 
 from multiprocessing import Process, Queue
 import os, time, random
@@ -96,7 +94,7 @@ if __name__=='__main__':
     proc_writer2.join()
     # proc_reader进程里是死循环，无法等待其结束，只能强行终止:
     proc_reader.terminate()
-'''
+
 '''
 pipe进程间通信
 
