@@ -39,7 +39,7 @@ manager.shutdown()
 '''
 
 '''
-程序taskWorker.py代码(win/linux版)
+# 程序taskWorker.py代码(win/linux版)
 
 #coding:utf-8
 import time
@@ -69,15 +69,17 @@ while(not task.empty()):
 
 # 处理结束:
 print('worker exit.')
-
 '''
+
 
 '''
 taskManager.py程序(Windows版)
 '''
 
+
+'''
 # taskManager.py for windows
-import Queue
+import queue
 from multiprocessing.managers import BaseManager
 from multiprocessing import freeze_support
 #任务个数
@@ -122,3 +124,4 @@ if __name__ == '__main__':
     freeze_support()
     win_run()
 
+'''
