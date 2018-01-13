@@ -13,40 +13,40 @@ and they lived at the bottom of a well.</p>
 <p class="story">...</p>
 """
 soup = BeautifulSoup(html_str,'lxml', from_encoding='utf-8')
-print soup.prettify()
+print (soup.prettify())
 
-print soup.name
-print soup.title.name
+print (soup.name)
+print (soup.title.name)
 
 soup.title.name = 'mytitle'
-print soup.title
-print soup.mytitle
+print (soup.title)
+print (soup.mytitle)
 soup.mytitle.name = 'title'
-print soup.p['class']
-print soup.p.get('class')
+print (soup.p['class'])
+print (soup.p.get('class'))
 
 
-print soup.p.attrs
+print (soup.p.attrs)
 soup.p['class']="myClass"
-print soup.p
+print (soup.p)
 
-print soup.p.string
-print type(soup.p.string)
+print (soup.p.string)
+print (type(soup.p.string))
 
-print type(soup.name)
-print soup.name
-print soup.attrs
+print (type(soup.name))
+print (soup.name)
+print (soup.attrs)
 
 
-print soup.a.string
-print type(soup.a.string)
+print (soup.a.string)
+print (type(soup.a.string))
 
 if type(soup.a.string)==bs4.element.Comment:
-    print soup.a.string
+    print (soup.a.string)
 
-print soup.head.contents
-print len(soup.head.contents)
-print soup.head.contents[0].string
+print (soup.head.contents)
+print (len(soup.head.contents))
+print (soup.head.contents[0].string)
 for child in soup.head.children:
     print(child)
 for child in soup.head.descendants:
