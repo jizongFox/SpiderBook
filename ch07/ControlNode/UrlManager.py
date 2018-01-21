@@ -78,11 +78,11 @@ class UrlManager(object):
         :param path:文件路径
         :return:返回set集合
         '''
-        print '[+] 从文件加载进度: %s' % path
+        print ('[+] 从文件加载进度: %s' % path)
         try:
             with open(path, 'rb') as f:
                 tmp = cPickle.load(f)
                 return tmp
         except:
-            print '[!] 无进度文件, 创建: %s' % path
+            print ('[!] 无进度文件, 创建: %s' % path)
         return set()

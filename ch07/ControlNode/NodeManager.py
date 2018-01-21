@@ -40,12 +40,12 @@ class NodeManager(object):
                 new_url = url_manager.get_new_url()
                 #将新的URL发给工作节点
                 url_q.put(new_url)
-                print 'old_url=',url_manager.old_url_size()
+                print ('old_url=',url_manager.old_url_size())
                 #加一个判断条件，当爬去2000个链接后就关闭,并保存进度
                 if(url_manager.old_url_size()>2000):
                     #通知爬行节点工作结束
                     url_q.put('end')
-                    print '控制节点发起结束通知!'
+                    print ('控制节点发起结束通知!')
                     #关闭管理节点，同时存储set状态
                     url_manager.save_progress('new_urls.txt',url_manager.new_urls)
                     url_manager.save_progress('old_urls.txt',url_manager.old_urls)
@@ -55,7 +55,7 @@ class NodeManager(object):
                 if not conn_q.empty():
                     urls = conn_q.get()
                     url_manager.add_new_urls(urls)
-            except BaseException,e:
+            except BaseException as e:
                 time.sleep(0.1)#延时休息
 
 
@@ -67,14 +67,14 @@ class NodeManager(object):
                     content = result_q.get(True)
                     if content['new_urls']=='end':
                         #结果分析进程接受通知然后结束
-                        print '结果分析进程接受通知然后结束!'
+                        print ('结果分析进程接受通知然后结束!')
                         store_q.put('end')
                         return
                     conn_q.put(content['new_urls'])#url为set类型
                     store_q.put(content['data'])#解析出来的数据为dict类型
                 else:
                     time.sleep(0.1)#延时休息
-            except BaseException,e:
+            except BaseException as e:
                 time.sleep(0.1)#延时休息
 
     def store_proc(self,store_q):
@@ -83,7 +83,7 @@ class NodeManager(object):
             if not store_q.empty():
                 data = store_q.get()
                 if data=='end':
-                    print '存储进程接受通知然后结束!'
+                    print ('存储进程接受通知然后结束!')
                     output.ouput_end(output.filepath)
 
                     return
