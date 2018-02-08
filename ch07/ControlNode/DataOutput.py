@@ -3,7 +3,7 @@ import codecs
 import time
 class DataOutput(object):
     def __init__(self):
-        self.filepath='baike_%s.html'%(time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) )
+        self.filepath='baike_%s.html'%(time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()))
         self.output_head(self.filepath)
         self.datas=[]
     def store_data(self,data):

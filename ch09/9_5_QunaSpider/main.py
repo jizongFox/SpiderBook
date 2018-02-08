@@ -32,10 +32,10 @@ class QunaSpider(object):
         while True:
             try:
                 WebDriverWait(driver, 10).until(
-                    EC.title_contains(unicode(to_city))
+                    EC.title_contains(to_city)
                 )
-            except Exception,e:
-                print e
+            except Exception as e:
+                print (e)
                 break
             time.sleep(5)
 
@@ -46,7 +46,7 @@ class QunaSpider(object):
             htm_const = driver.page_source
             soup = BeautifulSoup(htm_const,'html.parser', from_encoding='utf-8')
             infos = soup.find_all(class_="item_hotel_info")
-            f = codecs.open(unicode(to_city)+unicode(fromdate)+u'.html', 'a', 'utf-8')
+            f = codecs.open(to_city+fromdate+u'.html', 'a', 'utf-8')
             for info in infos:
                 f.write(str(page_num)+'--'*50)
                 content = info.get_text().replace(" ","").replace("\t","").strip()
@@ -61,21 +61,20 @@ class QunaSpider(object):
                 next_page.click()
                 page_num+=1
                 time.sleep(10)
-            except Exception,e:
-                print e
+            except Exception as e:
+                print (e)
                 break
 
     def crawl(self,root_url,to_city):
-         today = datetime.date.today().strftime('%Y-%m-%d')
-         tomorrow=datetime.date.today() + datetime.timedelta(days=1)
+         today = (datetime.date.today() + datetime.timedelta(days=10)).strftime('%Y-%m-%d')
+         tomorrow=datetime.date.today() + datetime.timedelta(days=15)
          tomorrow = tomorrow.strftime('%Y-%m-%d')
-         driver = webdriver.Firefox(executable_path='D:\geckodriver_win32\geckodriver.exe')
+         driver = webdriver.Chrome()
          driver.set_page_load_timeout(50)
          driver.get(root_url)
          driver.maximize_window() # 将浏览器最大化显示
          driver.implicitly_wait(10) # 控制间隔时间，等待浏览器反映
          self.get_hotel(driver,to_city,today,tomorrow)
-
 
 if __name__=='__main__':
     spider = QunaSpider()

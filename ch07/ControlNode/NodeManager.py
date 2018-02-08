@@ -1,11 +1,7 @@
 #coding:utf-8
-
 from multiprocessing.managers import BaseManager
-
 import time
-
 from multiprocessing import Process, Queue
-
 from DataOutput import DataOutput
 from UrlManager import UrlManager
 
@@ -19,23 +15,20 @@ class NodeManager(object):
         :param result_q: 结果队列
         :return:
         '''
-        #把创建的两个队列注册在网络上，利用register方法，callable参数关联了Queue对象，
+        # 把创建的两个队列注册在网络上，利用register方法，callable参数关联了Queue对象，
         # 将Queue对象在网络中暴露
         BaseManager.register('get_task_queue',callable=lambda:url_q)
         BaseManager.register('get_result_queue',callable=lambda:result_q)
         #绑定端口8001，设置验证口令‘baike’。这个相当于对象的初始化
-        manager=BaseManager(address=('',8001),authkey='baike')
+        manager=BaseManager(address=('',8003),authkey=b'baike')
         #返回manager对象
         return manager
-
-
 
     def url_manager_proc(self,url_q,conn_q,root_url):
         url_manager = UrlManager()
         url_manager.add_new_url(root_url)
         while True:
             while(url_manager.has_new_url()):
-
                 #从URL管理器获取新的url
                 new_url = url_manager.get_new_url()
                 #将新的URL发给工作节点
@@ -57,8 +50,6 @@ class NodeManager(object):
                     url_manager.add_new_urls(urls)
             except BaseException as e:
                 time.sleep(0.1)#延时休息
-
-
 
     def result_solve_proc(self,result_q,conn_q,store_q):
         while(True):
@@ -91,6 +82,8 @@ class NodeManager(object):
             else:
                 time.sleep(0.1)
         pass
+
+
 
 
 if __name__=='__main__':

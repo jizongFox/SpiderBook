@@ -1,8 +1,8 @@
 #coding:utf-8
 
-import MySQLdb
+import pymysql
 
-con = MySQLdb.connect(host='localhost', user='root', passwd='', db='test', port=3306, charset='utf8')
+con = pymysql.connect(host='localhost', user='root', passwd='123456', db='test', port=3306, charset='utf8')
 cur = con.cursor()
 
 cur.execute(' CREATE TABLE person (id int not null auto_increment primary key,name varchar(20),age int)')
@@ -20,10 +20,10 @@ cur.execute('SELECT * FROM person')
 cur.execute('SELECT * FROM person')
 res = cur.fetchall()
 for line in res:
-    print line
+    print (line)
     cur.execute('SELECT * FROM person')
     res = cur.fetchone()
-    print res
+    print (res)
 
 cur.execute('UPDATE person SET name=%s WHERE id=%s', ('rose', 1))
 cur.execute('DELETE FROM person WHERE id=%s', (0,))

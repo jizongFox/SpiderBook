@@ -1,6 +1,5 @@
 #coding:utf-8
 from multiprocessing.managers import BaseManager
-
 from HtmlDownloader import HtmlDownloader
 from HtmlParser import HtmlParser
 
@@ -15,7 +14,7 @@ class SpiderWork(object):
         server_addr = '127.0.0.1'
         print('Connect to server %s...' % server_addr)
         # 端口和验证口令注意保持与服务进程设置的完全一致:
-        self.m = BaseManager(address=(server_addr, 8001), authkey='baike')
+        self.m = BaseManager(address=(server_addr, 8003), authkey=b'baike')
         # 从网络连接:
         self.m.connect()
         # 实现第三步：获取Queue的对象:
@@ -24,7 +23,7 @@ class SpiderWork(object):
         #初始化网页下载器和解析器
         self.downloader = HtmlDownloader()
         self.parser = HtmlParser()
-        print ('init finish')
+        print ('initialization finished')
 
     def crawl(self):
         while(True):
