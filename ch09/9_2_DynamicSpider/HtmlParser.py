@@ -2,8 +2,8 @@
 import codecs
 import json
 import re
-from DynamicSpider.DataOutput import DataOutput
-from DynamicSpider.HtmlDownloader import HtmlDownloader
+from DataOutput import DataOutput
+from HtmlDownloader import HtmlDownloader
 
 
 class HtmlParser(object):
@@ -35,8 +35,8 @@ class HtmlParser(object):
             value = json.loads(result)
             try:
                 isRelease = value.get('value').get('isRelease')
-            except Exception,e:
-                print e
+            except Exception as e:
+                print (e)
                 return None
             if isRelease:
                 if value.get('value').get('hotValue')==None:
@@ -88,7 +88,7 @@ class HtmlParser(object):
             ShowDays = boxOffice.get('ShowDays')
             try:
                 Rank = boxOffice.get('Rank')
-            except Exception,e:
+            except Exception as e:
                 Rank=0
             #将提取其中的内容进行返回
             return (MovieId,movieTitle,RatingFinal,
@@ -97,8 +97,8 @@ class HtmlParser(object):
                     TotalBoxOffice+TotalBoxOfficeUnit,
                     TodayBoxOffice+TodayBoxOfficeUnit,
                     Rank,ShowDays,isRelease )
-        except Exception,e:
-            print e,page_url,value
+        except Exception as e:
+            print (e,page_url,value)
             return None
 
     def _parser_no_release(self,page_url,value,isRelease = 0):
@@ -132,14 +132,14 @@ class HtmlParser(object):
             AttitudeCount =  movieRating.get('AttitudeCount')
             try:
                 Rank = value.get('value').get('hotValue').get('Ranking')
-            except Exception,e:
+            except Exception as e:
                 Rank = 0
             return (MovieId,movieTitle,RatingFinal,
                     ROtherFinal,RPictureFinal,RDirectorFinal,
                     RStoryFinal, Usercount,AttitudeCount,u'无',
                     u'无',Rank,0,isRelease )
-        except Exception,e:
-            print e,page_url,value
+        except Exception as e:
+            print (e,page_url,value)
             return None
 
 

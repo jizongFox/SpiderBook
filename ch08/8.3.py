@@ -13,7 +13,7 @@ book = {"author": "Mike",
  "tags": ["爬虫", "python", "网络"],
 "date": datetime.datetime.utcnow()
  }
-book_id= collection .insert(book)
+book_id= collection.insert(book)
 
 books = [{"author": "Mike",
  "text": "My first book!",
@@ -24,14 +24,15 @@ books = [{"author": "Mike",
  "tags": ["hack", "python", "渗透"],
 "date": datetime.datetime.utcnow()
  }]
+
 books_id = collection.insert(books)
 
 
 collection.find_one({"author": "qiye"})
 for book in collection.find():
-    print book
+    print (book)
 for book in collection.find({"author": "qiye"}):
-    print book
+    print (book)
 
 collection.find({"author": "qiye"}).count()
 

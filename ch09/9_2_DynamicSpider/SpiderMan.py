@@ -1,8 +1,8 @@
 #coding:utf-8
 import time
-from DynamicSpider.DataOutput import DataOutput
-from DynamicSpider.HtmlDownloader import HtmlDownloader
-from DynamicSpider.HtmlParser import HtmlParser
+from DataOutput import DataOutput
+from HtmlDownloader import HtmlDownloader
+from HtmlParser import HtmlParser
 
 
 class SpiderMan(object):
@@ -13,6 +13,8 @@ class SpiderMan(object):
         self.output = DataOutput()
     def crawl(self,root_url):
         content = self.downloader.download(root_url)
+        with open('test.html','w') as f:
+            f.write(content)
         urls = self.parser.parser_url(root_url,content)
         #构造一个获取评分和票房链接，类似
         #http://service.library.mtime.com/Movie.api?
@@ -23,6 +25,7 @@ class SpiderMan(object):
         # &Ajax_RequestUrl=http%3A%2F%2Fmovie.mtime.com%2F108737%2F
         # &t=2016 11 13 22 31 49 3282
         # &Ajax_CallBackArgument0=108737
+        print(len(urls))
         for url in urls:
             try:
                 t = time.strftime("%Y%m%d%H%M%S3282", time.localtime())
@@ -37,10 +40,10 @@ class SpiderMan(object):
                 rank_content = self.downloader.download(rank_url)
                 data = self.parser.parser_json(rank_url,rank_content)
                 self.output.store_data(data)
-            except Exception,e:
-                 print "Crawl failed"
+            except Exception as e:
+                 print (e, ": Crawl failed")
         self.output.output_end()
-        print "Crawl finish"
+        print ("Crawl finish")
 
 if __name__=='__main__':
     spider = SpiderMan()
