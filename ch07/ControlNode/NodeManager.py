@@ -55,7 +55,7 @@ class NodeManager(object):
                 if not conn_q.empty():
                     urls = conn_q.get()
                     url_manager.add_new_urls(urls)
-            except BaseException,e:
+            except BaseException as e:
                 time.sleep(0.1)#延时休息
 
 

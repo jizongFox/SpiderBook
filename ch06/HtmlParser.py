@@ -1,6 +1,6 @@
 #coding:utf-8
 import re
-import urlparse
+import urllib.parse as urlparse
 from bs4 import BeautifulSoup
 
 
