@@ -30,11 +30,10 @@ class SpiderMan(object):
                 self.output.store_data(data)
                 print ("已经抓取%s个链接"%self.manager.old_url_size())
             except Exception as e:
-                print (e)
                 print ("crawl failed")
             #数据存储器将文件输出成指定格式
         self.output.output_html()
 
 if __name__=="__main__":
     spider_man = SpiderMan()
-    spider_man.crawl("https://baike.baidu.com/item/%E7%9F%A5%E4%B9%8E/4691322")
+    spider_man.crawl("http://baike.baidu.com/view/284853.htm")

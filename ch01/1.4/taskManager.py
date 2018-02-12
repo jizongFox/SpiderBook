@@ -38,7 +38,7 @@ def win_run():
             task.put(url)
         print ('try get result...')
         for i in range(10):
-            print ('result is %s' %result.get(timeout=10))
+            print ('result is %s' %result.get(timeout=100))
     except:
         print('Manager error')
     finally:
